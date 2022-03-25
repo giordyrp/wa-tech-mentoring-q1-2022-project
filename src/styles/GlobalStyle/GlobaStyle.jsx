@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
+const text = 'jeje';
+
 export default createGlobalStyle`
   html, body, #root {
     display: block;
@@ -66,5 +68,9 @@ export default createGlobalStyle`
 
   .image-gallery-icon:hover {
     color: ${({ theme }) => theme.colors.primary};
+  }
+  a {
+    color: ${(props) => props.theme.colors.primary};
+    text-decoration: none;
   }
 `;

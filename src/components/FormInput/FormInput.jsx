@@ -1,45 +1,42 @@
 import React from 'react';
-import * as Styled from './FormInput.styled';
-import Input from '../Input';
-import Col from '../Col';
-import PropTypes from 'prop-types';
-import { formElementType, gridType } from '../../types';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
 
-const FormInput = React.memo(
-  ({ value, onChange, grid, element, label }) => {
-    let InputComponent = null;
-    switch (element.type) {
-      case 'input':
-        InputComponent = Input;
-        break;
-      case 'textarea':
-        InputComponent = Input.TextArea;
-        break;
-      default:
-        return null;
-    }
-    return (
-      <Col {...grid}>
-        <Styled.FormInput direction="column">
-          <label>{label}</label>
-          <InputComponent
+const FormInput = ({ value, onChange, config, error, grid }) => {
+  let component = null;
+
+  switch (config.component) {
+    case 'text-field':
+      {
+        const inputProps = {};
+        switch (config.type) {
+          case 'textarea':
+            inputProps.multiline = true;
+            break;
+          default:
+        }
+        component = (
+          <TextField
             value={value}
-            onChange={(evt) => onChange(element.config.id, evt)}
-            {...element.config}
+            onChange={(evt) => onChange(config.props.id, evt.target.value)}
+            label={config.label}
+            fullWidth
+            error={Boolean(error)}
+            helperText={error}
+            {...config.props}
+            {...inputProps}
           />
-        </Styled.FormInput>
-      </Col>
-    );
-  },
-  (prevProps, nextProps) => prevProps.value === nextProps.value
-);
+        );
+      }
+      break;
+    default:
+      console.error('Input not found');
+  }
 
-FormInput.propTypes = {
-  value: PropTypes.any.isRequired,
-  onChange: PropTypes.func.isRequired,
-  grid: gridType,
-  element: formElementType,
-  label: PropTypes.string
+  return (
+    <Grid item {...(config.grid ?? grid)}>
+      {component}
+    </Grid>
+  );
 };
-
 export default FormInput;

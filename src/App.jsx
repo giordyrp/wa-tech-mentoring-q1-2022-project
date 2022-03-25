@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import Home from '../Home';
-import Products from '../Products';
-import Product from '../Product';
-import Search from '../Search';
+import Home from './pages/Home';
+import Products from './pages/Products';
+import Product from './pages/Product';
+import Search from './pages/Search';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
-import Cart from '../Cart';
-import Checkout from '../Checkout';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+import Login from './pages/Login';
 
 const routes = [
   {
@@ -27,6 +28,10 @@ const routes = [
   {
     path: '/products',
     component: Products,
+  },
+  {
+    path: '/login',
+    component: Login,
   },
   {
     path: ['/', 'home'],

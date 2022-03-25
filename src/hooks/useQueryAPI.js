@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from 'react';
-import { API_BASE_URL } from '../utils/constants';
+import { API_BASE_URL } from '../constants';
 import { useLatestAPI } from './useLatestAPI';
 
 const initialState = { data: {}, loading: true, error: null };
@@ -20,7 +20,7 @@ const reducer = (state, action) => {
 const useQueryAPI = (initialQuery) => {
   const { ref: apiRef, isLoading: isApiMetadataLoading } = useLatestAPI();
   const [state, disptach] = useReducer(reducer, initialState);
-  const [query, setQuery] = useState(initialQuery);  
+  const [query, setQuery] = useState(initialQuery);
 
   useEffect(() => {
     if (!apiRef || isApiMetadataLoading) {
@@ -32,7 +32,7 @@ const useQueryAPI = (initialQuery) => {
     const getData = async () => {
       try {
         disptach({ type: 'start' });
-  
+
         const params = query
           .map(
             (elem) =>
@@ -40,7 +40,9 @@ const useQueryAPI = (initialQuery) => {
                 elem[0] === 'q'
                   ? encodeURIComponent(
                       `[[${elem[1][0]}(${elem[1][1]}, ${
-                        typeof elem[1][2] === 'object' ? JSON.stringify(elem[1][2]) : `"${elem[1][2]}"`
+                        typeof elem[1][2] === 'object'
+                          ? JSON.stringify(elem[1][2])
+                          : `"${elem[1][2]}"`
                       })]]`
                     )
                   : elem[1]
@@ -48,13 +50,15 @@ const useQueryAPI = (initialQuery) => {
           )
           .join('&');
 
-          
-        const response = await fetch(`${API_BASE_URL}/documents/search?ref=${apiRef}&${params}`, {
-          signal: controller.signal,
-        });
-  
+        const response = await fetch(
+          `${API_BASE_URL}/documents/search?ref=${apiRef}&${params}`,
+          {
+            signal: controller.signal,
+          }
+        );
+
         const data = await response.json();
-  
+
         disptach({ type: 'response', data });
       } catch (error) {
         disptach({ type: 'error', error });
@@ -66,7 +70,6 @@ const useQueryAPI = (initialQuery) => {
     return () => {
       controller.abort();
     };
-
   }, [apiRef, isApiMetadataLoading, query]);
 
   return { ...state, setQuery };
