@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import Button from '@mui/material/Button';
-import MyLogo from '../../components/Logo';
+import MyLogo from '../Logo';
 
 const Layout = styled.div({
   backgroundColor: 'rgb(250, 251, 251)',

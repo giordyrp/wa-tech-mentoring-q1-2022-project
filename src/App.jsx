@@ -7,6 +7,7 @@ import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 const routes = [
   {
@@ -28,6 +29,10 @@ const routes = [
   {
     path: '/products',
     component: Products,
+  },
+  {
+    path: '/signup',
+    component: Signup,
   },
   {
     path: '/login',
