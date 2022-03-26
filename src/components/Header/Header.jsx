@@ -11,6 +11,9 @@ import {
   faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import { ProductCartContext } from '../../contexts/productCartContext';
+import IconButton from '@mui/material/IconButton';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useAuthContext } from '../../contexts/authContext';
 
 export const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -18,6 +21,7 @@ export const Header = () => {
   const [searchValue, setSearchValue] = useState('');
   const { cart } = useContext(ProductCartContext);
   const history = useHistory();
+  const { logout } = useAuthContext();
 
   const toggleShowSearch = () => setShowSearch(!showSearch);
   return (
@@ -86,6 +90,9 @@ export const Header = () => {
             >
               {cart.reduce((acc, product) => acc + product.count, 0)}
             </Button>
+            <IconButton onClick={logout}>
+              <LogoutIcon />
+            </IconButton>
           </FlexDiv>
         </>
       )}

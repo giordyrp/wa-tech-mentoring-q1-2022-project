@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Form from '../../components/Form';
 import { Link } from 'react-router-dom';
 import AuthLayout from '../../components/AuthLayout';
+import { useAuthContext } from '../../contexts/authContext';
+import { PASSWORD_REGEX } from '../../constants';
 
 const FORM = {
   inputs: {
@@ -38,6 +40,10 @@ const FORM = {
           type: 'password',
         },
         label: 'Password',
+        regex: {
+          pattern: PASSWORD_REGEX,
+          message: 'Password must contain 8 characters or more',
+        },
       },
     },
     confirmPassword: {
@@ -50,6 +56,10 @@ const FORM = {
           type: 'password',
         },
         label: 'Confirm Password',
+        regex: {
+          pattern: PASSWORD_REGEX,
+          message: 'Password must contain 8 characters or more',
+        },
         dependency: {
           input: 'password',
           type: 'password',
@@ -66,9 +76,17 @@ const FORM = {
 
 const Signup = () => {
   const [form, setForm] = useState(FORM);
+  const { signup, loading } = useAuthContext();
   return (
     <AuthLayout>
-      <Form form={form} setForm={setForm} onSubmit={() => 'Signup'} />
+      <Form
+        form={form}
+        setForm={setForm}
+        loading={loading}
+        onSubmit={() =>
+          signup(form.inputs.email.value, form.inputs.password.value)
+        }
+      />
       <p>
         Already have an account? <Link to="/login">Log in</Link>
       </p>

@@ -6,6 +6,11 @@ import { BrowserRouter } from 'react-router-dom';
 import ProductCartProvider from './contexts/productCartContext';
 import GlobalStyle from './styles/GlobalStyle';
 import Theme from './styles/Theme';
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
+import { AuthProvider } from './contexts/authContext';
+
+Amplify.configure(awsconfig);
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,7 +18,9 @@ ReactDOM.render(
       <Theme>
         <GlobalStyle />
         <BrowserRouter>
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </BrowserRouter>
       </Theme>
     </ProductCartProvider>

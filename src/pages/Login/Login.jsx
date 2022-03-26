@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Form from '../../components/Form';
 import { Link } from 'react-router-dom';
 import AuthLayout from '../../components/AuthLayout';
+import { useAuthContext } from '../../contexts/authContext';
 
 const FORM = {
   inputs: {
@@ -38,9 +39,17 @@ const FORM = {
 
 const Login = () => {
   const [form, setForm] = useState(FORM);
+  const { login, loading } = useAuthContext();
   return (
     <AuthLayout>
-      <Form form={form} setForm={setForm} />
+      <Form
+        form={form}
+        setForm={setForm}
+        loading={loading}
+        onSubmit={() =>
+          login(form.inputs.email.value, form.inputs.password.value)
+        }
+      />
       <p>
         New to eHome? <Link to="/signup">Create an account</Link>
       </p>

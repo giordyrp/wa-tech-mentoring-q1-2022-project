@@ -8,8 +8,10 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import { useAuthContext } from './contexts/authContext';
+import { CircularProgress } from '@mui/material';
 
-const routes = [
+const AuthRoutes = [
   {
     path: '/checkout',
     component: Checkout,
@@ -45,19 +47,36 @@ const routes = [
   },
 ];
 
+const NoAuthRoutes = [
+  {
+    path: '/signup',
+    component: Signup,
+  },
+  {
+    path: '/login',
+    component: Login,
+  },
+];
+
 const App = () => {
+  const { user, loading } = useAuthContext();
   const location = useLocation();
 
+  console.log({ loading });
   useEffect(() => {
     document.querySelector('#root').scrollTo(0, 0);
   }, [location.pathname]);
 
-  return (
+  const routes = user ? AuthRoutes : NoAuthRoutes;
+  const redirectUrl = user ? '/' : '/login';
+  return loading ? (
+    <CircularProgress />
+  ) : (
     <Switch>
       {routes.map((route) => (
         <Route key={route.path} {...route} />
       ))}
-      <Redirect to="/" />
+      <Redirect to={redirectUrl} />
     </Switch>
   );
 };
