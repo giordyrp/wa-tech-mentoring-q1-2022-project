@@ -7,6 +7,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({ data: null, loading: true });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const history = useHistory();
 
   const loadingHandler =
@@ -32,7 +33,7 @@ const AuthProvider = ({ children }) => {
         password,
       });
     } catch (error) {
-      console.log('error signing up:', error);
+      setError(error);
     }
   });
 
@@ -40,18 +41,16 @@ const AuthProvider = ({ children }) => {
     try {
       await Auth.signIn(email, password);
     } catch (error) {
-      console.log('error signing in', error);
+      setError(error);
     }
   });
 
   const confirmSignup = loadingHandler(async (email, password, code) => {
     try {
-      setLoading(true);
       await Auth.confirmSignUp(email, code);
       await login(email, password);
     } catch (error) {
-      setLoading(false);
-      console.log('error confirming sign up', error);
+      setError(error);
     }
   });
 
@@ -59,7 +58,7 @@ const AuthProvider = ({ children }) => {
     try {
       await Auth.signOut();
     } catch (error) {
-      console.log('error signing out: ', error);
+      setError(error);
     }
   });
 
@@ -86,7 +85,6 @@ const AuthProvider = ({ children }) => {
       })
       .catch(() => {
         setUser({ data: null, loading: false });
-        console.log('Not signed in');
       });
 
     return unsubscribe;
@@ -95,6 +93,7 @@ const AuthProvider = ({ children }) => {
   const value = {
     user,
     loading,
+    error,
     signup,
     confirmSignup,
     login,

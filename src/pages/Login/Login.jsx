@@ -40,6 +40,7 @@ const FORM = {
 const Login = () => {
   const [form, setForm] = useState(FORM);
   const { login, loading } = useAuthContext();
+
   return (
     <AuthLayout>
       <Form

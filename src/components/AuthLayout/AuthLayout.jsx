@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Styled from './AuthLayout.styled';
 import FlexDiv from '../FlexDiv';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
+import { useAuthContext } from '../../contexts/authContext';
 
 const AuthLayout = ({ social = true, children }) => {
+  const { error } = useAuthContext();
+  const [showError, setShowError] = useState(false);
+
+  const closeError = () => setShowError(false);
+
+  useEffect(() => {
+    if (error) {
+      setShowError(true);
+    }
+  }, [error]);
+
   return (
     <Styled.Layout>
       <Paper>
@@ -35,6 +49,9 @@ const AuthLayout = ({ social = true, children }) => {
           )}
         </Styled.Content>
       </Paper>
+      <Snackbar open={showError} autoHideDuration={7000} onClose={closeError}>
+        <Alert severity="error">{error ? error.message : ''}</Alert>
+      </Snackbar>
     </Styled.Layout>
   );
 };
