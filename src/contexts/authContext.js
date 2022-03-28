@@ -5,60 +5,73 @@ import { useHistory } from 'react-router';
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState({ data: null, loading: true });
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  const signup = async (email, password) => {
-    try {
+  const loadingHandler =
+    (fn) =>
+    async (...args) => {
       setLoading(true);
-      const { user } = await Auth.signUp({
+      await fn(...args);
+      setLoading(false);
+    };
+
+  const signup = loadingHandler(async (name, email, password) => {
+    try {
+      await Auth.signUp({
         username: email,
         password,
         attributes: {
+          name,
           email,
         },
       });
-      setUser(user);
-      setLoading(false);
-      history.push('/');
+      history.push('/verify-account', {
+        email,
+        password,
+      });
     } catch (error) {
-      setLoading(false);
       console.log('error signing up:', error);
     }
-  };
+  });
 
-  const login = async (email, password) => {
+  const login = loadingHandler(async (email, password) => {
     try {
-      setLoading(true);
-      const user = await Auth.signIn(email, password);
-      setUser(user);
-      setLoading(false);
-      history.push('/');
+      await Auth.signIn(email, password);
     } catch (error) {
-      setLoading(false);
       console.log('error signing in', error);
     }
-  };
+  });
 
-  const logout = async () => {
+  const confirmSignup = loadingHandler(async (email, password, code) => {
+    try {
+      setLoading(true);
+      await Auth.confirmSignUp(email, code);
+      await login(email, password);
+    } catch (error) {
+      setLoading(false);
+      console.log('error confirming sign up', error);
+    }
+  });
+
+  const logout = loadingHandler(async () => {
     try {
       await Auth.signOut();
-      history.push('/login');
     } catch (error) {
       console.log('error signing out: ', error);
     }
-  };
+  });
 
   useEffect(() => {
-    setLoading(true);
     const unsubscribe = Hub.listen('auth', ({ payload: { event, data } }) => {
       switch (event) {
         case 'signIn':
-          setUser(data);
+        case 'confirmSignUp':
+          setUser({ data, loading: false });
           break;
         case 'signOut':
-          setUser(null);
+          setUser({ data: null, loading: false });
           break;
         default:
       }
@@ -66,11 +79,14 @@ const AuthProvider = ({ children }) => {
 
     Auth.currentAuthenticatedUser()
       .then((currentUser) => {
-        setUser(currentUser);
+        setUser({
+          data: currentUser,
+          loading: false,
+        });
       })
-      .catch(() => console.log('Not signed in'))
-      .finally(() => {
-        setLoading(false);
+      .catch(() => {
+        setUser({ data: null, loading: false });
+        console.log('Not signed in');
       });
 
     return unsubscribe;
@@ -80,6 +96,7 @@ const AuthProvider = ({ children }) => {
     user,
     loading,
     signup,
+    confirmSignup,
     login,
     logout,
   };

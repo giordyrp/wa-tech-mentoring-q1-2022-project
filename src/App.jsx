@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { useAuthContext } from './contexts/authContext';
 import { CircularProgress } from '@mui/material';
+import VerificationCode from './components/VerificationCode';
 
 const AuthRoutes = [
   {
@@ -33,14 +34,6 @@ const AuthRoutes = [
     component: Products,
   },
   {
-    path: '/signup',
-    component: Signup,
-  },
-  {
-    path: '/login',
-    component: Login,
-  },
-  {
     path: ['/', 'home'],
     component: Home,
     exact: true,
@@ -48,6 +41,10 @@ const AuthRoutes = [
 ];
 
 const NoAuthRoutes = [
+  {
+    path: '/verify-account',
+    component: VerificationCode,
+  },
   {
     path: '/signup',
     component: Signup,
@@ -59,17 +56,16 @@ const NoAuthRoutes = [
 ];
 
 const App = () => {
-  const { user, loading } = useAuthContext();
+  const { user } = useAuthContext();
   const location = useLocation();
 
-  console.log({ loading });
   useEffect(() => {
     document.querySelector('#root').scrollTo(0, 0);
   }, [location.pathname]);
 
-  const routes = user ? AuthRoutes : NoAuthRoutes;
-  const redirectUrl = user ? '/' : '/login';
-  return loading ? (
+  const routes = user.data ? AuthRoutes : NoAuthRoutes;
+  const redirectUrl = user.data ? '/' : '/login';
+  return !user || user.loading ? (
     <CircularProgress />
   ) : (
     <Switch>

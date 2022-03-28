@@ -73,4 +73,21 @@ export default createGlobalStyle`
     color: ${(props) => props.theme.colors.primary};
     text-decoration: none;
   }
+
+  .react-code-input {
+    margin: 20px 0 40px 0;
+  }
+
+  .react-code-input input {
+  height: 50px !important;
+  width: 50px !important;
+  box-shadow: none !important;
+  padding-left: 15px !important;
+  font-family: inherit !important;
+}
+
+  .react-code-input input:focus-visible {
+    border-color: ${(props) => props.theme.colors.primary} !important;
+    outline: none;
+  }
 `;

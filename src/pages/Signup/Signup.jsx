@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import AuthLayout from '../../components/AuthLayout';
 import { useAuthContext } from '../../contexts/authContext';
 import { PASSWORD_REGEX } from '../../constants';
+import VerificationCode from '../../components/VerificationCode';
 
 const FORM = {
   inputs: {
@@ -77,6 +78,7 @@ const FORM = {
 const Signup = () => {
   const [form, setForm] = useState(FORM);
   const { signup, loading } = useAuthContext();
+
   return (
     <AuthLayout>
       <Form
@@ -84,12 +86,16 @@ const Signup = () => {
         setForm={setForm}
         loading={loading}
         onSubmit={() =>
-          signup(form.inputs.email.value, form.inputs.password.value)
+          signup(
+            form.inputs.name.value,
+            form.inputs.email.value,
+            form.inputs.password.value
+          )
         }
       />
       <p>
         Already have an account? <Link to="/login">Log in</Link>
-      </p>
+      </p>{' '}
     </AuthLayout>
   );
 };
