@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import Button from '../Button';
 import Input from '../Input';
 import FlexDiv from '../FlexDiv';
+import TooltipMui from '@mui/material/Tooltip';
 
 export const Nav = styled(FlexDiv)`
   margin: 0 auto;
@@ -115,3 +116,7 @@ export const DesktopSearchInput = styled(Input.Search)`
 export const MobileSearchInput = styled(Input.Search)`
   flex-grow: 1;
 `;
+
+export const Tooltip = styled(TooltipMui)({
+  margin: '0 10px',
+});

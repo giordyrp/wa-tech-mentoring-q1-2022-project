@@ -7,10 +7,37 @@ import ProductCartProvider from './contexts/productCartContext';
 import GlobalStyle from './styles/GlobalStyle';
 import Theme from './styles/Theme';
 import Amplify from 'aws-amplify';
-import awsconfig from './aws-exports';
+import awsConfig from './aws-exports';
 import { AuthProvider } from './contexts/authContext';
 
-Amplify.configure(awsconfig);
+const isLocalhost = Boolean(
+  window.location.hostname === 'localhost' ||
+    window.location.hostname === '[::1]' ||
+    window.location.hostname.match(
+      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+    )
+);
+
+const [localRedirectSignIn, productionRedirectSignIn] =
+  awsConfig.oauth.redirectSignIn.split(',');
+
+const [localRedirectSignOut, productionRedirectSignOut] =
+  awsConfig.oauth.redirectSignOut.split(',');
+
+const updatedAwsConfig = {
+  ...awsConfig,
+  oauth: {
+    ...awsConfig.oauth,
+    redirectSignIn: isLocalhost
+      ? localRedirectSignIn
+      : productionRedirectSignIn,
+    redirectSignOut: isLocalhost
+      ? localRedirectSignOut
+      : productionRedirectSignOut,
+  },
+};
+
+Amplify.configure(updatedAwsConfig);
 
 ReactDOM.render(
   <React.StrictMode>

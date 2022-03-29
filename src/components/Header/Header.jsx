@@ -14,6 +14,8 @@ import { ProductCartContext } from '../../contexts/productCartContext';
 import IconButton from '@mui/material/IconButton';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuthContext } from '../../contexts/authContext';
+import Avatar from '@mui/material/Avatar';
+import { stringAvatar } from '../../utils/functions';
 
 export const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -21,7 +23,7 @@ export const Header = () => {
   const [searchValue, setSearchValue] = useState('');
   const { cart } = useContext(ProductCartContext);
   const history = useHistory();
-  const { logout } = useAuthContext();
+  const { logout, user } = useAuthContext();
 
   const toggleShowSearch = () => setShowSearch(!showSearch);
   return (
@@ -90,6 +92,9 @@ export const Header = () => {
             >
               {cart.reduce((acc, product) => acc + product.count, 0)}
             </Button>
+            <Styled.Tooltip title={user.data.name}>
+              <Avatar {...stringAvatar(user.data.name)} />
+            </Styled.Tooltip>
             <IconButton onClick={logout}>
               <LogoutIcon />
             </IconButton>

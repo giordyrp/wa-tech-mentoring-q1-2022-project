@@ -9,7 +9,7 @@ import Snackbar from '@mui/material/Snackbar';
 import { useAuthContext } from '../../contexts/authContext';
 
 const AuthLayout = ({ social = true, children }) => {
-  const { error } = useAuthContext();
+  const { error, loginProvider } = useAuthContext();
   const [showError, setShowError] = useState(false);
 
   const closeError = () => setShowError(false);
@@ -33,6 +33,7 @@ const AuthLayout = ({ social = true, children }) => {
                 <Styled.GoogleButton
                   variant="outlined"
                   startIcon={<GoogleIcon />}
+                  onClick={() => loginProvider('Google')}
                   fullWidth
                 >
                   Google
@@ -40,6 +41,7 @@ const AuthLayout = ({ social = true, children }) => {
                 <Styled.FacebookButton
                   variant="outlined"
                   startIcon={<FacebookIcon />}
+                  onClick={() => loginProvider('Facebook')}
                   fullWidth
                 >
                   Facebook

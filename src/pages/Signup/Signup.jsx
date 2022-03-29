@@ -87,9 +87,9 @@ const Signup = () => {
         loading={loading}
         onSubmit={() =>
           signup(
-            form.inputs.name.value,
-            form.inputs.email.value,
-            form.inputs.password.value
+            form.inputs.name.value.trim(),
+            form.inputs.email.value.trim(),
+            form.inputs.password.value.trim()
           )
         }
       />

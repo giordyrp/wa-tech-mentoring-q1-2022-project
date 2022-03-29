@@ -48,7 +48,10 @@ const Login = () => {
         setForm={setForm}
         loading={loading}
         onSubmit={() =>
-          login(form.inputs.email.value, form.inputs.password.value)
+          login(
+            form.inputs.email.value.trim(),
+            form.inputs.password.value.trim()
+          )
         }
       />
       <p>

@@ -65,6 +65,7 @@ const App = () => {
 
   const routes = user.data ? AuthRoutes : NoAuthRoutes;
   const redirectUrl = user.data ? '/' : '/login';
+
   return !user || user.loading ? (
     <CircularProgress />
   ) : (

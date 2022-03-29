@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { Auth, Hub } from 'aws-amplify';
+import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
 import { useHistory } from 'react-router';
 
 const AuthContext = createContext();
@@ -62,12 +63,34 @@ const AuthProvider = ({ children }) => {
     }
   });
 
+  const loginProvider = async (provider) => {
+    try {
+      await Auth.federatedSignIn({
+        provider: CognitoHostedUIIdentityProvider[provider],
+      });
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const getUser = () => {
+    Auth.currentAuthenticatedUser()
+      .then((currentUser) => {
+        setUser({
+          data: currentUser.attributes,
+          loading: false,
+        });
+      })
+      .catch(() => {
+        setUser({ data: null, loading: false });
+      });
+  };
+
   useEffect(() => {
     const unsubscribe = Hub.listen('auth', ({ payload: { event, data } }) => {
       switch (event) {
         case 'signIn':
-        case 'confirmSignUp':
-          setUser({ data, loading: false });
+          getUser();
           break;
         case 'signOut':
           setUser({ data: null, loading: false });
@@ -76,17 +99,7 @@ const AuthProvider = ({ children }) => {
       }
     });
 
-    Auth.currentAuthenticatedUser()
-      .then((currentUser) => {
-        setUser({
-          data: currentUser,
-          loading: false,
-        });
-      })
-      .catch(() => {
-        setUser({ data: null, loading: false });
-      });
-
+    getUser();
     return unsubscribe;
   }, []);
 
@@ -98,6 +111,7 @@ const AuthProvider = ({ children }) => {
     confirmSignup,
     login,
     logout,
+    loginProvider,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
