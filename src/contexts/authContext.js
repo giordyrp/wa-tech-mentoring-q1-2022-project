@@ -11,66 +11,51 @@ const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const history = useHistory();
 
-  const loadingHandler =
+  const asyncHandler =
     (fn) =>
     async (...args) => {
-      setLoading(true);
-      await fn(...args);
-      setLoading(false);
+      try {
+        setLoading(true);
+        await fn(...args);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
     };
 
-  const signup = loadingHandler(async (name, email, password) => {
-    try {
-      await Auth.signUp({
-        username: email,
-        password,
-        attributes: {
-          name,
-          email,
-        },
-      });
-      history.push('/verify-account', {
+  const signup = asyncHandler(async (name, email, password) => {
+    await Auth.signUp({
+      username: email,
+      password,
+      attributes: {
+        name,
         email,
-        password,
-      });
-    } catch (error) {
-      setError(error);
-    }
+      },
+    });
+    history.push('/verify-account', {
+      email,
+      password,
+    });
   });
 
-  const login = loadingHandler(async (email, password) => {
-    try {
-      await Auth.signIn(email, password);
-    } catch (error) {
-      setError(error);
-    }
+  const login = asyncHandler(async (email, password) => {
+    await Auth.signIn(email, password);
   });
 
-  const confirmSignup = loadingHandler(async (email, password, code) => {
-    try {
-      await Auth.confirmSignUp(email, code);
-      await login(email, password);
-    } catch (error) {
-      setError(error);
-    }
+  const confirmSignup = asyncHandler(async (email, password, code) => {
+    await Auth.confirmSignUp(email, code);
+    await login(email, password);
   });
 
-  const logout = loadingHandler(async () => {
-    try {
-      await Auth.signOut();
-    } catch (error) {
-      setError(error);
-    }
+  const logout = asyncHandler(async () => {
+    await Auth.signOut();
   });
 
   const loginProvider = async (provider) => {
-    try {
-      await Auth.federatedSignIn({
-        provider: CognitoHostedUIIdentityProvider[provider],
-      });
-    } catch (error) {
-      setError(error);
-    }
+    await Auth.federatedSignIn({
+      provider: CognitoHostedUIIdentityProvider[provider],
+    });
   };
 
   const getUser = () => {
