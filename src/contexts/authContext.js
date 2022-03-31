@@ -51,11 +51,11 @@ const AuthProvider = ({ children }) => {
     await Auth.signOut();
   });
 
-  const loginProvider = async (provider) => {
+  const loginProvider = asyncHandler(async (provider) => {
     await Auth.federatedSignIn({
       provider: CognitoHostedUIIdentityProvider[provider],
     });
-  };
+  });
 
   const getUser = () => {
     Auth.currentAuthenticatedUser()
