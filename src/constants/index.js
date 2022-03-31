@@ -1,0 +1,3 @@
+export const API_BASE_URL = 'https://wizeline-academy.cdn.prismic.io/api/v2';
+export const REQUIRED_TEXT = 'This field is required';
+export const PASSWORD_REGEX = /^\d{8,}$/;

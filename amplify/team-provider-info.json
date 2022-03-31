@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ehome-dev-144333-authRole",
+      "UnauthRoleArn": "arn:aws:iam::728977443922:role/amplify-ehome-dev-144333-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::728977443922:role/amplify-ehome-dev-144333-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-ehome-dev-144333-deployment",
+      "UnauthRoleName": "amplify-ehome-dev-144333-unauthRole",
+      "StackName": "amplify-ehome-dev-144333",
+      "StackId": "arn:aws:cloudformation:us-east-1:728977443922:stack/amplify-ehome-dev-144333/dd605fe0-ac73-11ec-9a7a-0a93bab7da43",
+      "AmplifyAppId": "dbfa3p5wrro7b"
+    },
+    "categories": {
+      "auth": {
+        "ehome09061be1": {}
+      }
+    }
+  }
+}
