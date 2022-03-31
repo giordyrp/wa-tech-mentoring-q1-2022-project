@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Form from '../../components/Form';
 import { Link } from 'react-router-dom';
+import Form from '../../components/Form';
 import AuthLayout from '../../components/AuthLayout';
 import { useAuthContext } from '../../contexts/authContext';
 
@@ -31,13 +31,15 @@ const FORM = {
       },
     },
   },
-  grid: { xs: 24 },
+  grid: {
+    xs: 24,
+  },
   button: {
     text: 'Login',
   },
 };
 
-const Login = () => {
+function Login() {
   const [form, setForm] = useState(FORM);
   const { login, loading } = useAuthContext();
 
@@ -48,10 +50,7 @@ const Login = () => {
         setForm={setForm}
         loading={loading}
         onSubmit={() =>
-          login(
-            form.inputs.email.value.trim(),
-            form.inputs.password.value.trim()
-          )
+          login(form.inputs.email.value.trim(), form.inputs.password.value.trim())
         }
       />
       <p>
@@ -59,6 +58,6 @@ const Login = () => {
       </p>
     </AuthLayout>
   );
-};
+}
 
 export default Login;

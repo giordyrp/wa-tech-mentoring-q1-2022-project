@@ -28,12 +28,8 @@ const updatedAwsConfig = {
   ...awsConfig,
   oauth: {
     ...awsConfig.oauth,
-    redirectSignIn: isLocalhost
-      ? localRedirectSignIn
-      : productionRedirectSignIn,
-    redirectSignOut: isLocalhost
-      ? localRedirectSignOut
-      : productionRedirectSignOut,
+    redirectSignIn: isLocalhost ? localRedirectSignIn : productionRedirectSignIn,
+    redirectSignOut: isLocalhost ? localRedirectSignOut : productionRedirectSignOut,
   },
 };
 

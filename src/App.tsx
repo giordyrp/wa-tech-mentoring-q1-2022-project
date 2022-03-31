@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import Product from './pages/Product';
 import Search from './pages/Search';
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { useAuthContext } from './contexts/authContext';
-import { CircularProgress } from '@mui/material';
 import VerificationCode from './components/VerificationCode';
 
 type TRoute = {
-  path: string | string[],
-  component: React.FunctionComponent,
-  exact?: boolean
+  path: string | string[];
+  component: React.FunctionComponent;
+  exact?: boolean;
 };
 
 const AuthRoutes: TRoute[] = [
@@ -61,7 +61,7 @@ const NoAuthRoutes: TRoute[] = [
   },
 ];
 
-const App = () => {
+function App() {
   const { user } = useAuthContext();
   const location = useLocation();
 
@@ -76,11 +76,15 @@ const App = () => {
   ) : (
     <Switch>
       {routes.map((route) => (
-        <Route key={typeof route.path === 'string' ? route.path : route.path[0]} {...route} />
+        <Route
+          key={typeof route.path === 'string' ? route.path : route.path[0]}
+          path={route.path}
+          component={route.component}
+        />
       ))}
       <Redirect to={redirectUrl} />
     </Switch>
   );
-};
+}
 
 export default App;
