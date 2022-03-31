@@ -13,15 +13,14 @@ const AuthProvider = ({ children }) => {
 
   const asyncHandler =
     (fn) =>
-    async (...args) => {
-      try {
-        setLoading(true);
-        await fn(...args);
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
+    (...args) => {
+      setLoading(true);
+      setError(null);
+      fn(...args)
+        .catch(setError)
+        .finally(() => {
+          setLoading(false);
+        });
     };
 
   const signup = asyncHandler(async (name, email, password) => {
