@@ -12,7 +12,13 @@ import { useAuthContext } from './contexts/authContext';
 import { CircularProgress } from '@mui/material';
 import VerificationCode from './components/VerificationCode';
 
-const AuthRoutes = [
+type TRoute = {
+  path: string | string[],
+  component: React.FunctionComponent,
+  exact?: boolean
+};
+
+const AuthRoutes: TRoute[] = [
   {
     path: '/checkout',
     component: Checkout,
@@ -34,13 +40,13 @@ const AuthRoutes = [
     component: Products,
   },
   {
-    path: ['/', 'home'],
+    path: ['/', '/home'],
     component: Home,
     exact: true,
   },
 ];
 
-const NoAuthRoutes = [
+const NoAuthRoutes: TRoute[] = [
   {
     path: '/verify-account',
     component: VerificationCode,
@@ -60,18 +66,17 @@ const App = () => {
   const location = useLocation();
 
   useEffect(() => {
-    document.querySelector('#root').scrollTo(0, 0);
+    document.querySelector('#root')?.scrollTo(0, 0);
   }, [location.pathname]);
 
   const routes = user.data ? AuthRoutes : NoAuthRoutes;
   const redirectUrl = user.data ? '/' : '/login';
-
   return !user || user.loading ? (
     <CircularProgress />
   ) : (
     <Switch>
       {routes.map((route) => (
-        <Route key={route.path} {...route} />
+        <Route key={typeof route.path === 'string' ? route.path : route.path[0]} {...route} />
       ))}
       <Redirect to={redirectUrl} />
     </Switch>
