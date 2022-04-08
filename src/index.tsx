@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import Amplify from 'aws-amplify';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
 import ProductCartProvider from './contexts/productCartContext';
 import GlobalStyle from './styles/GlobalStyle';
 import Theme from './styles/Theme';
-import Amplify from 'aws-amplify';
 import awsConfig from './aws-exports';
 import { AuthProvider } from './contexts/authContext';
 

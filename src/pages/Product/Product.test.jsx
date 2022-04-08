@@ -62,7 +62,8 @@ const setProductCount = async (count) => {
 
 test('cart item total number is updated on adding to cart', async () => {
   renderProduct(product);
-  const prevItemTotalNumber = (await screen.findByTestId('cart-header-button')).textContent;
+  const prevItemTotalNumber = (await screen.findByTestId('cart-header-button'))
+    .textContent;
   const counToAdd = 5;
   await setProductCount(counToAdd);
   const addToCartButton = await screen.findByRole('button', { name: 'Add to Cart' });

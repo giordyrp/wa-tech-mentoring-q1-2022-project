@@ -61,7 +61,7 @@ const NoAuthRoutes: TRoute[] = [
   },
 ];
 
-function App() {
+const App = () => {
   const { user } = useAuthContext();
   const location = useLocation();
 
@@ -78,13 +78,12 @@ function App() {
       {routes.map((route) => (
         <Route
           key={typeof route.path === 'string' ? route.path : route.path[0]}
-          path={route.path}
-          component={route.component}
+          {...route}
         />
       ))}
       <Redirect to={redirectUrl} />
     </Switch>
   );
-}
+};
 
 export default App;

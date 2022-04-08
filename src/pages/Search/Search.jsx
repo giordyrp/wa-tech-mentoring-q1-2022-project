@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import ProductSearch from '../../components/ProductSearch';
 import useQueryAPI from '../../hooks/useQueryAPI';

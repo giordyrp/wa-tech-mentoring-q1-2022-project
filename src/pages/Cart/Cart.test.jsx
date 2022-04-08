@@ -1,8 +1,9 @@
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { MemoryRouter, Route, Switch } from 'react-router';
+import { MemoryRouter, Route, Switch } from 'react-router-dom';
 import { AppWrapper } from '../../utils/testing';
 import Products from '../Products';
-import Cart from './';
+import Cart from '.';
 import products from '../../mocks/en-us/products.json';
 
 const renderWithRoute = (route) => {
@@ -60,7 +61,9 @@ describe('cart has products', () => {
     const pName = await screen.findByRole('heading', { name });
     const pPrice = await screen.findAllByText(`$${price}`);
     const pImage = await screen.findByAltText(mainimage.alt);
-    const pSubtotal = parseInt((await screen.findAllByTestId('product-subtotal'))[0].textContent);
+    const pSubtotal = parseInt(
+      (await screen.findAllByTestId('product-subtotal'))[0].textContent
+    );
     const pRemoveButtons = await screen.findAllByTestId('remove-product-button');
 
     expect(pName).toBeInTheDocument();
@@ -87,7 +90,9 @@ describe('cart has products', () => {
 
   test('product is removed correctly', async () => {
     const productIndex = 0;
-    const pName = await screen.findByRole('heading', { name: products.results[0].data.name });
+    const pName = await screen.findByRole('heading', {
+      name: products.results[0].data.name,
+    });
     const pRemoveButtons = await screen.findAllByTestId('remove-product-button');
     fireEvent.click(pRemoveButtons[productIndex]);
     expect(pName).not.toBeInTheDocument();

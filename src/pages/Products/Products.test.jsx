@@ -18,7 +18,9 @@ describe('Product Category Sidebar ', () => {
 
   it('renders data from API', async () => {
     const categoryTextList = await screen.findAllByTestId('category-checkbox-text');
-    categoryTextList.forEach((category, index) => expect(category).toHaveTextContent(categories.results[index].data.name));
+    categoryTextList.forEach((category, index) =>
+      expect(category).toHaveTextContent(categories.results[index].data.name)
+    );
   });
 
   it('filters on click', async () => {
@@ -26,7 +28,9 @@ describe('Product Category Sidebar ', () => {
     const categoryList = await screen.findAllByTestId('category-checkbox');
     fireEvent.click(categoryList[categoryIndex]);
     const productCardCategoryList = await screen.findAllByTestId('product-card-category');
-    expect(productCardCategoryList[0].textContent).toBe(categories.results[categoryIndex].data.name.toLowerCase());
+    expect(productCardCategoryList[0].textContent).toBe(
+      categories.results[categoryIndex].data.name.toLowerCase()
+    );
   });
 });
 
@@ -50,11 +54,15 @@ describe('Product List Pagination ', () => {
     const nextButton = await screen.findByTestId('pagination-next-page');
     fireEvent.click(nextButton);
     const activePage = await screen.findByTestId('pagination-page-active');
-    expect(parseInt(activePage.textContent)).toBe(parseInt(prevActivePage.textContent) + 1);
+    expect(parseInt(activePage.textContent)).toBe(
+      parseInt(prevActivePage.textContent) + 1
+    );
     const prevButton = await screen.findByTestId('pagination-prev-page');
     fireEvent.click(prevButton);
     const newActivePage = await screen.findByTestId('pagination-page-active');
-    expect(parseInt(newActivePage.textContent)).toBe(parseInt(activePage.textContent) - 1);
+    expect(parseInt(newActivePage.textContent)).toBe(
+      parseInt(activePage.textContent) - 1
+    );
   });
 
   it('next button is diabled on last page', async () => {

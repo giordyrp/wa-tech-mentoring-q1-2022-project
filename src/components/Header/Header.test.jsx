@@ -1,7 +1,7 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
-
 import { AppWrapper } from '../../utils/testing';
-import Header from './Header';
+import { Header } from './Header';
 
 it('renders header logo', () => {
   render(
