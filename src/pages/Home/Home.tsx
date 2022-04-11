@@ -1,10 +1,10 @@
 import React from 'react';
-import Layout from '../../components/Layout';
-import Slider from '../../components/Slider';
-import Carousel from '../../components/Carousel';
-import CategoryCard from '../../components/CategoryCard';
-import FeaturedProducts from '../../components/FeaturedProducts/FeaturedProducts';
-import useQueryAPI from '../../hooks/useQueryAPI';
+import Layout from 'components/Layout';
+import Slider from 'components/Slider';
+import Carousel from 'components/Carousel';
+import CategoryCard from 'components/CategoryCard';
+import FeaturedProducts from 'components/FeaturedProducts/FeaturedProducts';
+import useQueryAPI from 'hooks/useQueryAPI';
 
 const Home = () => {
   const banners = useQueryAPI([

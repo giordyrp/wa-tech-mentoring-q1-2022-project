@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "ehome",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/giordyromero/Documents/Tech Mentoring/wa-tech-mentoring-q1-2022-project/amplify/backend/api/ehome/schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 7
+    }
+  }
+}
