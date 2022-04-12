@@ -10,7 +10,7 @@ interface SliderProps {
 
 const Slider: React.FC<SliderProps> = ({ banners, loading }) => {
   const [index, setIndex] = useState(0);
-  const totalBanners = banners.results?.length || 0;
+  const totalBanners = banners.length || 0;
 
   useEffect(() => {
     const interval = setInterval(
@@ -32,9 +32,9 @@ const Slider: React.FC<SliderProps> = ({ banners, loading }) => {
       {loading ? (
         <Spinner />
       ) : (
-        banners.results.length > 0 && (
+        banners.length > 0 && (
           <>
-            <Slide banner={banners.results[index]} />
+            <Slide banner={banners[index]} />
             <Styled.Controls index={index}>{controlList}</Styled.Controls>
           </>
         )

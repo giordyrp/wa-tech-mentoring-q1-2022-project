@@ -1,16 +1,17 @@
 import React from 'react';
+import { IBanner } from 'types';
 import * as Styled from './Slide.styled';
 
 interface SlideProps {
-  banner: { data: any };
+  banner: IBanner;
 }
 
 const Slide: React.FC<SlideProps> = ({ banner }) => {
   const {
     title,
-    description: [{ text: description }],
-    main_image: { url: backgroundUrl },
-  } = banner.data;
+    description,
+    image: { url: backgroundUrl },
+  } = banner;
 
   return (
     <Styled.Slide>

@@ -5,19 +5,19 @@ import Carousel from 'components/Carousel';
 import CategoryCard from 'components/CategoryCard';
 import FeaturedProducts from 'components/FeaturedProducts/FeaturedProducts';
 import useQueryAPI from 'hooks/useQueryAPI';
+import { listBanners } from 'graphql/queries';
+import useGraphqlAPI from 'hooks/useGraphqlAPI';
 
 const Home = () => {
-  const banners = useQueryAPI([
-    ['q', ['at', 'document.type', 'banner']],
-    ['lang', 'en-us'],
-    ['pageSize', '5'],
-  ]);
+  const banners = useGraphqlAPI({
+    query: listBanners,
+  });
+
   const categories = useQueryAPI([
     ['q', ['at', 'document.type', 'category']],
     ['lang', 'en-us'],
     ['pageSize', '30'],
   ]);
-
   const featuredProducts = useQueryAPI([
     ['q', ['at', 'document.type', 'product']],
     ['q', ['at', 'document.tags', ['Featured']]],
