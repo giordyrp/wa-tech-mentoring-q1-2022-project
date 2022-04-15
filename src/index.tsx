@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import Amplify from 'aws-amplify';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ProductCartProvider from './contexts/productCartContext';
@@ -35,6 +36,11 @@ const updatedAwsConfig = {
 
 Amplify.configure(updatedAwsConfig);
 
+const client = new ApolloClient({
+  uri: `${awsConfig.aws_cloud_logic_custom[0].endpoint}/graphql`,
+  cache: new InMemoryCache(),
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <ProductCartProvider>
@@ -42,7 +48,9 @@ ReactDOM.render(
         <GlobalStyle />
         <BrowserRouter>
           <AuthProvider>
-            <App />
+            <ApolloProvider client={client}>
+              <App />
+            </ApolloProvider>
           </AuthProvider>
         </BrowserRouter>
       </Theme>
