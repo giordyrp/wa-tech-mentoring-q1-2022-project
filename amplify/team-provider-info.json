@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "ehome09061be1": {}
+      },
+      "function": {
+        "apolloServerFunction": {
+          "deploymentBucketName": "amplify-ehome-dev-144333-deployment",
+          "s3Key": "amplify-builds/apolloServerFunction-7142344f7961616d6459-build.zip"
+        }
       }
     }
   }
