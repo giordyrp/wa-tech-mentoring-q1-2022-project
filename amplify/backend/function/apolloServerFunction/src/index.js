@@ -1,21 +1,12 @@
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
-const { ApolloServer, gql } = require('apollo-server-lambda');
+const { ApolloServer } = require('apollo-server-lambda');
+const { typeDefs } = require('./apollo/schema');
+const { resolvers } = require('./apollo/resolvers');
+const connectDB = require('./db');
 
-// Construct a schema, using GraphQL schema language
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-// Provide resolver functions for your schema fields
-const resolvers = {
-  Query: {
-    hello: () => 'Hello world!',
-  },
-};
+connectDB();
 
 const server = new ApolloServer({ typeDefs, resolvers });
 

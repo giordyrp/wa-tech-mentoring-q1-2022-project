@@ -1,7 +1,7 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Auth, Hub } from 'aws-amplify';
 import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -71,7 +71,7 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = Hub.listen('auth', ({ payload: { event, data } }) => {
+    const unsubscribe = Hub.listen('auth', ({ payload: { event } }) => {
       switch (event) {
         case 'signIn':
           getUser();
@@ -87,6 +87,7 @@ const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
+  // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value = {
     user,
     loading,

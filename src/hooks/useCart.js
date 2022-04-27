@@ -15,9 +15,7 @@ const useCart = () => {
 
   const cartWithData = cart.map((cartProduct) => ({
     ...cartProduct,
-    data: products.data.results?.find(
-      (product) => product.id === cartProduct.id
-    ),
+    data: products.data.results?.find((product) => product.id === cartProduct.id),
   }));
 
   return {

@@ -65,7 +65,21 @@
     "apolloServerFunction": {
       "build": true,
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "ehomeApolloServerLayer",
+          "attributes": [
+            "Arn"
+          ]
+        }
+      ]
+    },
+    "ehomeApolloServerLayer": {
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer",
+      "build": true
     }
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import Amplify from 'aws-amplify';
+import Amplify, { Auth } from 'aws-amplify';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -35,6 +35,7 @@ const updatedAwsConfig = {
 };
 
 Amplify.configure(updatedAwsConfig);
+Auth.configure(updatedAwsConfig);
 
 const client = new ApolloClient({
   uri: `${awsConfig.aws_cloud_logic_custom[0].endpoint}/graphql`,

@@ -1,8 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
-const text = 'jeje';
-
 export default createGlobalStyle`
   html, body, #root {
     display: block;

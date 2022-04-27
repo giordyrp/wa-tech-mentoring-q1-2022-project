@@ -15,6 +15,10 @@
     },
     "s3Key": {
       "Type": "String"
+    },
+    "functionehomeApolloServerLayerArn": {
+      "Type": "String",
+      "Default": "functionehomeApolloServerLayerArn"
     }
   },
   "Conditions": {
@@ -79,7 +83,11 @@
           ]
         },
         "Runtime": "nodejs14.x",
-        "Layers": [],
+        "Layers": [
+          {
+            "Ref": "functionehomeApolloServerLayerArn"
+          }
+        ],
         "Timeout": 25
       }
     },
