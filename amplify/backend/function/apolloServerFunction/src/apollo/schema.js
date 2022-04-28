@@ -33,6 +33,7 @@ exports.typeDefs = gql`
   type Category {
     id: ID!
     name: String!
+    slug: String
     image: Image
   }
 

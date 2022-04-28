@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import _cloneDeep from 'lodash/cloneDeep';
+import useQueryApollo from 'hooks/useQueryApollo';
+import { getCategories } from 'queries';
 import Layout from '../../components/Layout';
 import ProductList from '../../components/ProductList';
 import Section from '../../components/Section';
@@ -17,11 +19,8 @@ const productsQuery: any = [
 ];
 
 const Products = () => {
-  const categories = useQueryAPI([
-    ['q', ['at', 'document.type', 'category']],
-    ['lang', 'en-us'],
-    ['pageSize', '30'],
-  ]);
+  const categories = useQueryApollo('categories', getCategories);
+
   const products = useQueryAPI();
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -55,9 +54,7 @@ const Products = () => {
     if (params.has('category')) {
       const categorySlugList = params.get('category')!.split(',');
       const categoryIdList: string[] = categorySlugList.map(
-        (slug) =>
-          categories.data.results.find((category: any) => category.slugs.includes(slug))
-            .id
+        (slug) => categories.data.items.find((category: any) => category.slug === slug).id
       );
       setSelectedCategories(categorySlugList);
       newProductsQuery.push(['q', ['any', 'my.product.category', categoryIdList]]);

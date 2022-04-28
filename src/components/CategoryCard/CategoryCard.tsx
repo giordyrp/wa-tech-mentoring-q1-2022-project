@@ -7,19 +7,15 @@ interface CategoryCardProps extends Styled.CategoryCardPropsStyled {
   category?: any;
 }
 const CategoryCard: React.FC<CategoryCardProps> = ({ category, width, margin }) => {
-  const { slugs, data } = category;
-  const {
-    name,
-    main_image: { url: coverSrc, alt: coverAlt },
-  } = data;
+  const { name, slug, image } = category;
 
   const history = useHistory();
   return (
     <Styled.CategoryCard
-      cover={<Styled.Cover src={coverSrc} alt={coverAlt} />}
+      cover={<Styled.Cover src={image.url} alt={image.alt} />}
       width={width}
       margin={margin}
-      onClick={() => history.push(`/products?category=${slugs[0]}`)}
+      onClick={() => history.push(`/products?category=${slug}`)}
     >
       <FlexDiv justify="center" align="center" width="-webkit-fill-available">
         <p>{name}</p>

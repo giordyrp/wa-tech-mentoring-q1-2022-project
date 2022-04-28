@@ -22,7 +22,7 @@ const Carousel: React.FC<CarouselProps> = ({
   const [translatePixels, setTranslatePixels] = useState(0);
   const divRef = useRef<HTMLDivElement>(null!);
 
-  const totalElements = elements.results?.length || 0;
+  const totalElements = elements?.items?.length || 0;
   const cardWitdh = 200;
   const cardMargin = 10;
   const CardDivWidth = cardWitdh + cardMargin * 2;
@@ -71,7 +71,7 @@ const Carousel: React.FC<CarouselProps> = ({
             totalElements={totalElements}
             translatePixels={translatePixels}
           >
-            {elements.results.map((element: any) => (
+            {elements.items.map((element: any) => (
               <Card
                 key={element.id}
                 width={cardWitdh}

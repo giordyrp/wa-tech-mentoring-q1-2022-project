@@ -22,9 +22,9 @@ const ProductCategoryFilter: React.FC<ProductCategoryFilterProps> = ({
   onSelect,
   onClear,
 }) => {
-  const options = categories.results?.map((category: any) => ({
-    label: category.data.name,
-    value: category.slugs[0],
+  const options = categories?.items?.map((category: any) => ({
+    label: category.name,
+    value: category.slug,
   }));
 
   return (

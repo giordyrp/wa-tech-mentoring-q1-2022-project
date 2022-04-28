@@ -7,18 +7,14 @@ import FeaturedProducts from 'components/FeaturedProducts/FeaturedProducts';
 import useQueryAPI from 'hooks/useQueryAPI';
 import { listBanners } from 'graphql/queries';
 import useGraphqlAPI from 'hooks/useGraphqlAPI';
-import { gql, useQuery } from '@apollo/client';
+import { getCategories } from 'queries';
+import useQueryApollo from 'hooks/useQueryApollo';
 
 const Home = () => {
   const banners = useGraphqlAPI({
     query: listBanners,
   });
 
-  const categories = useQueryAPI([
-    ['q', ['at', 'document.type', 'category']],
-    ['lang', 'en-us'],
-    ['pageSize', '30'],
-  ]);
   const featuredProducts = useQueryAPI([
     ['q', ['at', 'document.type', 'product']],
     ['q', ['at', 'document.tags', ['Featured']]],
@@ -26,13 +22,7 @@ const Home = () => {
     ['pageSize', '16'],
   ]);
 
-  const { data } = useQuery(gql`
-    query GetCategories {
-      categories {
-        name
-      }
-    }
-  `);
+  const categories = useQueryApollo('categories', getCategories);
 
   return (
     <Layout>
