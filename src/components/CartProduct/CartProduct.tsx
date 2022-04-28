@@ -19,9 +19,14 @@ interface CartProductProps {
 const CartProduct: React.FC<CartProductProps> = React.memo(
   ({ product, setProductCount, removeProduct }) => {
     const {
-      id,
-      data: { name, mainimage, price, stock },
-    } = product.data;
+      data: {
+        id,
+        name,
+        images: [image],
+        price,
+        stock,
+      },
+    } = product;
     const history = useHistory();
 
     return (
@@ -29,8 +34,8 @@ const CartProduct: React.FC<CartProductProps> = React.memo(
         <Col xs={2}>
           <FlexDiv justify="center" align="center">
             <Styled.Image
-              src={mainimage.url}
-              alt={mainimage.alt}
+              src={image.url}
+              alt={image.alt}
               onClick={() => history.push(`/product/${id}`)}
             />
           </FlexDiv>

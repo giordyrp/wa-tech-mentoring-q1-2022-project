@@ -19,3 +19,35 @@ export const getCategories = gql`
     }
   }
 `;
+
+export const getProducts = gql`
+  query GetProducts {
+    products {
+      count
+      pagination {
+        page
+        pages
+      }
+      items {
+        id
+        name
+        slug
+        images {
+          url
+          alt
+          dimension {
+            width
+            height
+          }
+        }
+        sku
+        tags
+        stock
+        price
+        category {
+          name
+        }
+      }
+    }
+  }
+`;

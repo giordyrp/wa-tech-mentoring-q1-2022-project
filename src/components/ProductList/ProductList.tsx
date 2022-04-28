@@ -24,8 +24,7 @@ const ProductList: React.FC<ProductListProps> = ({
 }) => {
   const { cart, addProductToCart, removeProductFromCart, setProductCountFromCart } =
     useContext(ProductCartContext);
-  const { page } = products;
-  const totalPages = products.total_pages;
+  const { page, pages: totalPages } = products?.pagination ?? {};
   const history = useHistory();
   const onChangePage = (page: number) => {
     history.push(setParam('page', page));
@@ -36,10 +35,10 @@ const ProductList: React.FC<ProductListProps> = ({
       <Row wrap="wrap" justify="flex-start" data-testid="product-list">
         {loading ? (
           <Spinner />
-        ) : products.results_size === 0 ? (
+        ) : products.count === 0 ? (
           <Empty message="No Results" />
         ) : (
-          products.results?.map((product: any) => (
+          products.items?.map((product: any) => (
             <ProductCard
               key={product.id}
               product={product}
@@ -52,7 +51,7 @@ const ProductList: React.FC<ProductListProps> = ({
           ))
         )}
       </Row>
-      {!loading && pagination && products.results_size > 0 && (
+      {!loading && pagination && products.count > 0 && (
         <Pagination page={page} totalPages={totalPages} onChange={onChangePage} />
       )}
     </>

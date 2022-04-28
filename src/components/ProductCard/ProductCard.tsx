@@ -28,20 +28,20 @@ const ProductCard: React.FC<ProductCardProps> = React.memo(
     setProductCountFromCart,
     grid,
   }) => {
-    const { id, data } = product;
     const {
+      id,
       name,
-      category: { slug: category },
       price,
-      mainimage: { url: imageSrc, alt: imageAlt },
+      images: [image],
       stock,
-    } = data;
+      category: { name: category },
+    } = product;
 
     const history = useHistory();
     return (
       <Col {...grid}>
         <Styled.ProductCard
-          cover={<Styled.Image src={imageSrc} alt={imageAlt} />}
+          cover={<Styled.Image src={image.url} alt={image.alt} />}
           onClick={() => history.push(`/product/${id}`)}
           data-testid="product-card"
         >

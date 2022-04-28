@@ -8,17 +8,7 @@ export interface IGrid {
 
 export interface ICartProduct {
   id: string;
-  data: {
-    id: string;
-    data: {
-      name: string;
-      mainimage: any;
-      stock: number;
-      price: number;
-      [key: string]: any;
-    };
-    [key: string]: any;
-  };
+  data: any;
   count: number;
 }
 

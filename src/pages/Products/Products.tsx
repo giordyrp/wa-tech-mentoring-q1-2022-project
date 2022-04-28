@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import _cloneDeep from 'lodash/cloneDeep';
 import useQueryApollo from 'hooks/useQueryApollo';
-import { getCategories } from 'queries';
+import { getCategories, getProducts } from 'queries';
 import Layout from '../../components/Layout';
 import ProductList from '../../components/ProductList';
 import Section from '../../components/Section';
 import Row from '../../components/Row';
 import Col from '../../components/Col';
 import ProductCategoryFilter from '../../components/ProductCategoryFilter';
-import useQueryAPI from '../../hooks/useQueryAPI';
 import { deleteParam, setParam } from '../../utils/functions';
 
 const productsQuery: any = [
@@ -21,7 +20,7 @@ const productsQuery: any = [
 const Products = () => {
   const categories = useQueryApollo('categories', getCategories);
 
-  const products = useQueryAPI();
+  const products = useQueryApollo('products', getProducts);
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
@@ -67,7 +66,7 @@ const Products = () => {
       newProductsQuery.push(['page', newPage]);
     }
 
-    products.setQuery(newProductsQuery);
+    // products.setQuery(newProductsQuery);
   };
 
   useEffect(() => {
