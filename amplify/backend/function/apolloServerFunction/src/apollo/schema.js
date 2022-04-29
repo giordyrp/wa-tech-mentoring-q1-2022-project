@@ -40,7 +40,7 @@ exports.typeDefs = gql`
   input ProductsQuery {
     limit: Int
     page: Int
-    category: ID
+    category: [ID]
   }
 
   type Pagination {

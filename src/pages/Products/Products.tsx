@@ -11,11 +11,9 @@ import Col from '../../components/Col';
 import ProductCategoryFilter from '../../components/ProductCategoryFilter';
 import { deleteParam, setParam } from '../../utils/functions';
 
-const productsQuery: any = [
-  ['q', ['at', 'document.type', 'product']],
-  ['lang', 'en-us'],
-  ['pageSize', '12'],
-];
+const productsQuery: any = {
+  limit: 12,
+};
 
 const Products = () => {
   const categories = useQueryApollo('categories', getCategories);
@@ -56,17 +54,17 @@ const Products = () => {
         (slug) => categories.data.items.find((category: any) => category.slug === slug).id
       );
       setSelectedCategories(categorySlugList);
-      newProductsQuery.push(['q', ['any', 'my.product.category', categoryIdList]]);
+      newProductsQuery.category = categoryIdList;
     } else {
       setSelectedCategories([]);
     }
 
     if (params.has('page')) {
       const newPage = params.get('page')!;
-      newProductsQuery.push(['page', newPage]);
+      newProductsQuery.page = parseInt(newPage);
     }
 
-    // products.setQuery(newProductsQuery);
+    products.refetch({ query: newProductsQuery });
   };
 
   useEffect(() => {

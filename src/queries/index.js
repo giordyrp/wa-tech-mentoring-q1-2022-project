@@ -21,8 +21,8 @@ export const getCategories = gql`
 `;
 
 export const getProducts = gql`
-  query GetProducts {
-    products {
+  query GetProducts($query: ProductsQuery) {
+    products(query: $query) {
       count
       pagination {
         page

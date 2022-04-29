@@ -14,11 +14,11 @@ const advancedResults = (model) => async (parent, args) => {
   query = model.find(reqQuery);
 
   // Pagination
-  const page = parseInt(reqQuery.page, 10) || 1;
-  const limit = parseInt(reqQuery.limit, 10) || 100;
+  const page = parseInt(args.query?.page, 10) || 1;
+  const limit = parseInt(args.query?.limit, 10) || 14;
   const startIndex = (page - 1) * limit;
   // const endIndex = page * limit;
-  const total = await model.countDocuments();
+  const total = await model.countDocuments(args.query);
 
   query = query.skip(startIndex).limit(limit);
 
