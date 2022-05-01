@@ -50,6 +50,7 @@ exports.typeDefs = gql`
     page: Int
     category: [ID]
     _id: [ID]
+    tags: String
   }
 
   type Pagination {

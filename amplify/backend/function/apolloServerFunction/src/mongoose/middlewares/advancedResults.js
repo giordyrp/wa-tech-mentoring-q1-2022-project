@@ -1,23 +1,18 @@
 const advancedResults = (model) => async (parent, args) => {
   let query;
 
-  // Copy req.query
   const reqQuery = { ...args.query };
 
-  // Fields to exclude
   const removeFields = ['page', 'limit'];
 
-  // Loop over removeFields and delete then from reQuery
   removeFields.forEach((param) => delete reqQuery[param]);
 
-  // Find resource
   query = model.find(reqQuery);
 
-  // Pagination
   const page = parseInt(args.query?.page, 10) || 1;
   const limit = parseInt(args.query?.limit, 10) || 14;
   const startIndex = (page - 1) * limit;
-  // const endIndex = page * limit;
+
   const total = await model.countDocuments(args.query);
 
   query = query.skip(startIndex).limit(limit);

@@ -4,10 +4,9 @@ import Slider from 'components/Slider';
 import Carousel from 'components/Carousel';
 import CategoryCard from 'components/CategoryCard';
 import FeaturedProducts from 'components/FeaturedProducts/FeaturedProducts';
-import useQueryAPI from 'hooks/useQueryAPI';
 import { listBanners } from 'graphql/queries';
 import useGraphqlAPI from 'hooks/useGraphqlAPI';
-import { getCategories } from 'queries';
+import { getCategories, getProducts } from 'queries';
 import useQueryApollo from 'hooks/useQueryApollo';
 
 const Home = () => {
@@ -15,12 +14,13 @@ const Home = () => {
     query: listBanners,
   });
 
-  const featuredProducts = useQueryAPI([
-    ['q', ['at', 'document.type', 'product']],
-    ['q', ['at', 'document.tags', ['Featured']]],
-    ['lang', 'en-us'],
-    ['pageSize', '16'],
-  ]);
+  const featuredProducts = useQueryApollo('products', getProducts, {
+    variables: {
+      query: {
+        tags: 'Featured',
+      },
+    },
+  });
 
   const categories = useQueryApollo('categories', getCategories);
 
