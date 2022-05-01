@@ -18,7 +18,7 @@
       "function": {
         "apolloServerFunction": {
           "deploymentBucketName": "amplify-ehome-dev-144333-deployment",
-          "s3Key": "amplify-builds/apolloServerFunction-544e346b336c4e563543-build.zip"
+          "s3Key": "amplify-builds/apolloServerFunction-6d75546e513473683066-build.zip"
         },
         "ehomeApolloServerLayer": {
           "deploymentBucketName": "amplify-ehome-dev-144333-deployment",

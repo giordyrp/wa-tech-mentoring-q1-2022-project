@@ -4,6 +4,7 @@ exports.typeDefs = gql`
   type Query {
     hello: String
     products(query: ProductsQuery): ProductsResponse
+    product(id: ID): Product
     categories: CategoriesResponse
   }
 

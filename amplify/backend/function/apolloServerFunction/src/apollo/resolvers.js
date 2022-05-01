@@ -6,6 +6,10 @@ exports.resolvers = {
   Query: {
     hello: () => 'Hello world!',
     products: advancedResults(Product),
+    product: async (parent, args) => {
+      const product = await Product.findById(args.id);
+      return product;
+    },
     categories: advancedResults(Category),
   },
   Product: {
