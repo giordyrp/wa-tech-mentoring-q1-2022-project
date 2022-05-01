@@ -1,3 +1,5 @@
+import { Product } from './apollo';
+
 export interface IGrid {
   xs?: number;
   sm?: number;
@@ -8,7 +10,7 @@ export interface IGrid {
 
 export interface ICartProduct {
   id: string;
-  data: any;
+  data: Product;
   count: number;
 }
 
@@ -22,30 +24,11 @@ interface IImage {
   alt?: string;
   dimension: IImageDimension;
 }
-
-export interface Product {
-  id: string;
-  name: string;
-  slug: string;
-  sku: string;
-  tags: string[];
-  images: IImage;
-  stock: number;
-  price: number;
-  categoryId: string;
-  category: ICategory;
-}
-
-export interface ICategory {
-  id: string;
-  name: string;
-  image: IImage;
-  products: Product[];
-}
-
 export interface IBanner {
   id: string;
   title: string;
   description: string;
   image: IImage;
 }
+
+export * from './apollo';

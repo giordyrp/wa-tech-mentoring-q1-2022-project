@@ -12,7 +12,9 @@ interface CartProductProps {
 const CartProduct: React.FC<CartProductProps> = ({ product }) => {
   const {
     id,
-    data: { name, mainimage, price },
+    name,
+    images: [image],
+    price,
   } = product.data;
   const history = useHistory();
 
@@ -21,8 +23,8 @@ const CartProduct: React.FC<CartProductProps> = ({ product }) => {
       <Col xs={3}>
         <FlexDiv justify="center" align="center">
           <Styled.Image
-            src={mainimage.url}
-            alt={mainimage.alt}
+            src={image.url}
+            alt={image.alt ?? 'img'}
             onClick={() => history.push(`/product/${id}`)}
           />
         </FlexDiv>

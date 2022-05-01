@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import * as types from 'types/';
 import * as Styled from './ProductCategoryFilter.styled';
 import { Spinner } from '../Spinner/Spinner.styled';
 import Checkbox from '../Checkbox';
@@ -8,7 +9,7 @@ import FlexDiv from '../FlexDiv';
 import Button from '../Button';
 
 interface ProductCategoryFilterProps {
-  categories: any;
+  categories: types.CategoriesResponse;
   loading: boolean;
   selected: string[];
   onSelect: (option: any) => void;

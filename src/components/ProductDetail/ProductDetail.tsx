@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import ImageGallery from 'react-image-gallery';
 import { useTheme } from 'styled-components';
+import * as types from 'types/';
 import Col from '../Col';
 import Row from '../Row';
 import * as Styled from './ProductDetail.styled';
@@ -12,7 +13,7 @@ import { ProductCartContext } from '../../contexts/productCartContext';
 import CartProductCount from '../CartProductCount';
 
 interface ProductDetailProps {
-  product: any;
+  product: types.Product;
 }
 
 const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
@@ -21,7 +22,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
   const theme = useTheme() as any;
   const { cart, addProductToCart, removeProductFromCart, setProductCountFromCart } =
     useContext(ProductCartContext);
-  console.log(product);
+
   const {
     id,
     tags,

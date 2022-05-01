@@ -1,0 +1,9 @@
+schema:
+  - https://ykbbi11my9.execute-api.us-east-1.amazonaws.com/dev/graphql
+overwrite: true
+generates:
+  ./src/types/apollo.ts:
+    config:
+      noNamespaces: true
+    plugins:
+      - typescript

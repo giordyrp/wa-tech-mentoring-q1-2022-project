@@ -49,6 +49,7 @@ exports.typeDefs = gql`
     limit: Int
     page: Int
     category: [ID]
+    _id: [ID]
   }
 
   type Pagination {

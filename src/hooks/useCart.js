@@ -1,21 +1,23 @@
 import { useContext } from 'react';
+import { getProducts } from '../queries';
 import { ProductCartContext } from '../contexts/productCartContext';
-import useQueryAPI from './useQueryAPI';
+import useQueryApollo from './useQueryApollo';
 
 const useCart = () => {
   const productCartContext = useContext(ProductCartContext);
   const { cart } = productCartContext;
 
-  const products = useQueryAPI([
-    ['q', ['at', 'document.type', 'product']],
-    ['q', ['in', 'document.id', cart.map((product) => product.id)]],
-    ['lang', 'en-us'],
-    ['pageSize', '20'],
-  ]);
+  const products = useQueryApollo('products', getProducts, {
+    variables: {
+      query: {
+        _id: cart.map((product) => product.id),
+      },
+    },
+  });
 
   const cartWithData = cart.map((cartProduct) => ({
     ...cartProduct,
-    data: products.data.results?.find((product) => product.id === cartProduct.id),
+    data: products.data?.items?.find((product) => product.id === cartProduct.id),
   }));
 
   return {

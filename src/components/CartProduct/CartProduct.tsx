@@ -35,7 +35,7 @@ const CartProduct: React.FC<CartProductProps> = React.memo(
           <FlexDiv justify="center" align="center">
             <Styled.Image
               src={image.url}
-              alt={image.alt}
+              alt={image.alt ?? 'img'}
               onClick={() => history.push(`/product/${id}`)}
             />
           </FlexDiv>

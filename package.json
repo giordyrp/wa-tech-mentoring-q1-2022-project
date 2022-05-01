@@ -63,6 +63,8 @@
     ]
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/typescript": "^2.4.8",
     "@types/lodash": "^4.14.181",
     "@types/react-image-gallery": "^1.0.5",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
