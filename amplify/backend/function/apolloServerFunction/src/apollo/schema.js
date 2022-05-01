@@ -19,6 +19,11 @@ exports.typeDefs = gql`
     dimension: ImageDimension!
   }
 
+  type Spec {
+    name: String!
+    description: String!
+  }
+
   type Product {
     id: ID!
     name: String!
@@ -28,6 +33,8 @@ exports.typeDefs = gql`
     images: [Image!]!
     stock: Int!
     price: Float!
+    description: String!
+    specs: [Spec!]!
     category: Category!
   }
 

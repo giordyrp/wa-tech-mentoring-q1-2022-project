@@ -21,27 +21,25 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
   const theme = useTheme() as any;
   const { cart, addProductToCart, removeProductFromCart, setProductCountFromCart } =
     useContext(ProductCartContext);
-
+  console.log(product);
   const {
     id,
     tags,
-    data: {
-      name,
-      sku,
-      images,
-      category: { slug: categoryName },
-      price,
-      description,
-      specs,
-      stock,
-    },
+    name,
+    sku,
+    images,
+    category: { name: categoryName },
+    price,
+    description,
+    specs,
+    stock,
   } = product;
 
   const cartProduct = cart.find((cartProduct: any) => cartProduct.id === id);
 
   const imageList = images.map((image: any) => ({
-    original: image.image.url,
-    thumbnail: image.image.url,
+    original: image.url,
+    thumbnail: image.url,
   }));
 
   const setThumbnailPosition = () => {
@@ -132,14 +130,14 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
         </Col>
       </Row>
       <h3>Description</h3>
-      <p>{description[0].text}</p>
+      <p>{description}</p>
       <h3>Specifications</h3>
       <Styled.SpecsTable>
         <tbody>
           {specs.map((spec: any) => (
-            <tr key={spec.spec_name}>
-              <td>{spec.spec_name}</td>
-              <td>{spec.spec_value}</td>
+            <tr key={spec.name}>
+              <td>{spec.name}</td>
+              <td>{spec.description}</td>
             </tr>
           ))}
         </tbody>

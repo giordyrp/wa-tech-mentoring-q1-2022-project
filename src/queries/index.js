@@ -51,3 +51,34 @@ export const getProducts = gql`
     }
   }
 `;
+
+export const getProductById = gql`
+  query GetProductById($id: ID) {
+    product(id: $id) {
+      id
+      name
+      slug
+      images {
+        url
+        alt
+        dimension {
+          width
+          height
+        }
+      }
+      sku
+      tags
+      stock
+      price
+      description
+      specs {
+        name
+        description
+      }
+      category {
+        name
+        slug
+      }
+    }
+  }
+`;

@@ -1,25 +1,21 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import useQueryAPI from '../../hooks/useQueryAPI';
+import useQueryApollo from 'hooks/useQueryApollo';
+import { getProductById } from 'queries';
 import Spinner from '../../components/Spinner';
 import ProductDetail from '../../components/ProductDetail';
 import Layout from '../../components/Layout';
 
 const Product = () => {
   const params = useParams<{ id: string }>();
-  const product = useQueryAPI([
-    ['q', ['at', 'document.type', 'product']],
-    ['q', ['at', 'document.id', params.id]],
-    ['lang', 'en-us'],
-  ]);
+
+  const product = useQueryApollo('product', getProductById, {
+    variables: { id: params.id },
+  });
 
   return (
     <Layout>
-      {product.loading ? (
-        <Spinner />
-      ) : (
-        <ProductDetail product={product.data.results[0]} />
-      )}
+      {product.loading ? <Spinner /> : <ProductDetail product={product.data} />}
     </Layout>
   );
 };

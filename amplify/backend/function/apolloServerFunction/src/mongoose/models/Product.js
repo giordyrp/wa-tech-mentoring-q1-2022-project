@@ -1,6 +1,17 @@
 const mongoose = require('mongoose');
 const Image = require('../schemas/Image');
 
+const Spec = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+});
+
 const ProductSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -28,6 +39,14 @@ const ProductSchema = new mongoose.Schema({
   },
   price: {
     type: Number,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  specs: {
+    type: [Spec],
     required: true,
   },
   category: {
