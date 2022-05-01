@@ -10,7 +10,7 @@ export interface IGrid {
 
 export interface ICartProduct {
   id: string;
-  data: Product;
+  data?: Product;
   count: number;
 }
 

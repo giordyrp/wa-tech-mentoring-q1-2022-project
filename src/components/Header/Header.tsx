@@ -87,7 +87,7 @@ export const Header = () => {
               onClick={() => history.push('/cart')}
               data-testid="cart-header-button"
             >
-              {cart.reduce((acc: number, product: any) => acc + product.count, 0)}
+              {cart.reduce((acc, product) => acc + product.count, 0)}
             </Button>
             <Styled.Tooltip title={user.data.name}>
               <Avatar {...stringAvatar(user.data.name)} />

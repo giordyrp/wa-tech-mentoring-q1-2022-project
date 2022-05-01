@@ -19,14 +19,12 @@ interface CartProductProps {
 const CartProduct: React.FC<CartProductProps> = React.memo(
   ({ product, setProductCount, removeProduct }) => {
     const {
-      data: {
-        id,
-        name,
-        images: [image],
-        price,
-        stock,
-      },
-    } = product;
+      id,
+      name,
+      images: [image],
+      price,
+      stock,
+    } = product.data!;
     const history = useHistory();
 
     return (

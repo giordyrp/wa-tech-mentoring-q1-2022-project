@@ -59,14 +59,14 @@ exports.typeDefs = gql`
   }
 
   type CategoriesResponse {
-    count: Int
-    pagination: Pagination
+    count: Int!
+    pagination: Pagination!
     items: [Category!]!
   }
 
   type ProductsResponse {
-    count: Int
-    pagination: Pagination
+    count: Int!
+    pagination: Pagination!
     items: [Product!]!
   }
 `;

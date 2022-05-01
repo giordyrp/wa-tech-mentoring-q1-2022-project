@@ -15,7 +15,7 @@ const CartProduct: React.FC<CartProductProps> = ({ product }) => {
     name,
     images: [image],
     price,
-  } = product.data;
+  } = product.data!;
   const history = useHistory();
 
   return (

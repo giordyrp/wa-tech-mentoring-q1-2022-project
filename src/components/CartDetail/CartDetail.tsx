@@ -67,7 +67,7 @@ const CartDetail: React.FC<CardDetailProps> = ({
                 $
                 <span data-testid="cart-total">
                   {cart.reduce(
-                    (acc, product) => acc + product.count * product.data.price,
+                    (acc, product) => acc + product.count * product.data!.price,
                     0
                   )}
                 </span>

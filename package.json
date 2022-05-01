@@ -42,7 +42,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint ./src/views/Home",
     "lint:fix": "eslint --fix",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}"
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}",
+    "codegen": "npx graphql-codegen --config src/codegen.yml"
   },
   "eslintConfig": {
     "extends": [

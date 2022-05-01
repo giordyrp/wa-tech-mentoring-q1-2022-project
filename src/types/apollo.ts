@@ -14,9 +14,9 @@ export type Scalars = {
 
 export type CategoriesResponse = {
   __typename?: 'CategoriesResponse';
-  count?: Maybe<Scalars['Int']>;
+  count: Scalars['Int'];
   items: Array<Category>;
-  pagination?: Maybe<Pagination>;
+  pagination: Pagination;
 };
 
 export type Category = {
@@ -71,9 +71,9 @@ export type ProductsQuery = {
 
 export type ProductsResponse = {
   __typename?: 'ProductsResponse';
-  count?: Maybe<Scalars['Int']>;
+  count: Scalars['Int'];
   items: Array<Product>;
-  pagination?: Maybe<Pagination>;
+  pagination: Pagination;
 };
 
 export type Query = {

@@ -36,7 +36,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
     stock,
   } = product;
 
-  const cartProduct = cart.find((cartProduct: any) => cartProduct.id === id);
+  const cartProduct = cart.find((cartProduct) => cartProduct.id === id);
 
   const imageList = images.map((image: any) => ({
     original: image.url,
@@ -51,7 +51,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
   };
 
   const validateStock = () => {
-    const productFromCart = cart.find((product: any) => product.id === id);
+    const productFromCart = cart.find((product) => product.id === id);
     let count = countToBuy;
     if (productFromCart) {
       count = productFromCart.count;

@@ -1,13 +1,30 @@
 import React, { createContext, useEffect, useReducer } from 'react';
 import _ from 'lodash';
+import { ICartProduct } from 'types';
 
-export const ProductCartContext = createContext();
+interface ProductCartContextStateInterface {
+  cart: ICartProduct[];
+}
 
-const initialState = {
+interface ProductCartContextValueInterface {
+  cart: ICartProduct[];
+  addProductToCart: (id: string, count: number) => void;
+  removeProductFromCart: (id: string) => void;
+  setProductCountFromCart: (id: string, count: number) => void;
+}
+
+type ActionType =
+  | { type: 'ADD_PRODUCT'; payload: { id: string; count: number } }
+  | { type: 'REMOVE_PRODUCT'; payload: { id: string } }
+  | { type: 'SET_COUNT'; payload: { id: string; count: number } };
+
+const initialState: ProductCartContextStateInterface = {
   cart: [],
 };
 
-const reducer = (state, action) => {
+export const ProductCartContext = createContext<ProductCartContextValueInterface>(null!);
+
+const reducer = (state: ProductCartContextStateInterface, action: ActionType) => {
   switch (action.type) {
     case 'ADD_PRODUCT': {
       const { id, count } = action.payload;
@@ -39,17 +56,22 @@ const reducer = (state, action) => {
   }
 };
 
-const ProductCartProvider = ({ children }) => {
+interface ProductCartProviderProps {
+  children: React.ReactNode;
+}
+const ProductCartProvider = ({ children }: ProductCartProviderProps) => {
   const [state, dispatch] = useReducer(
     reducer,
-    localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : initialState
+    localStorage.getItem('cart')
+      ? JSON.parse(localStorage.getItem('cart') ?? '{}')
+      : initialState
   );
 
-  const addProductToCart = (id, count) =>
+  const addProductToCart = (id: string, count: number) =>
     dispatch({ type: 'ADD_PRODUCT', payload: { id, count } });
-  const removeProductFromCart = (id) =>
+  const removeProductFromCart = (id: string) =>
     dispatch({ type: 'REMOVE_PRODUCT', payload: { id } });
-  const setProductCountFromCart = (id, count) =>
+  const setProductCountFromCart = (id: string, count: number) =>
     dispatch({ type: 'SET_COUNT', payload: { id, count } });
 
   useEffect(() => {

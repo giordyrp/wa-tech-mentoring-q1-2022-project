@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
 import _isEqual from 'lodash/isEqual';
-import { IGrid, ICartProduct } from 'types';
+import { IGrid, ICartProduct, Product } from 'types';
 import CartProductCount from '../CartProductCount';
 import Button from '../Button';
 import FlexDiv from '../FlexDiv';
@@ -11,7 +11,7 @@ import * as Styled from './ProductCard.styled';
 import Col from '../Col';
 
 interface ProductCardProps {
-  product: any;
+  product: Product;
   cartProduct: ICartProduct;
   addProductToCart: (id: string, count: number) => void;
   removeProductFromCart: (id: string) => void;
@@ -41,7 +41,7 @@ const ProductCard: React.FC<ProductCardProps> = React.memo(
     return (
       <Col {...grid}>
         <Styled.ProductCard
-          cover={<Styled.Image src={image.url} alt={image.alt} />}
+          cover={<Styled.Image src={image.url} alt={image.alt ?? 'img'} />}
           onClick={() => history.push(`/product/${id}`)}
           data-testid="product-card"
         >

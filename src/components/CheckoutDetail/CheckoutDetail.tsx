@@ -54,7 +54,7 @@ const CheckoutDetail: React.FC<CheckoutDetailProps> = ({
                   <p>
                     $
                     {cart.reduce(
-                      (acc, product) => acc + product.count * product.data.price,
+                      (acc, product) => acc + product.count * product.data!.price,
                       0
                     )}
                   </p>
